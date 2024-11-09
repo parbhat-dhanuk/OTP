@@ -166,7 +166,7 @@ export const resetPassword=async(req,res)=>{
         userExist.password=bcrypt.hashSync(newPassword,10)
         userExist.otpVerified=false
         await userExist.save()
-        return res.status(201).json({
+        return res.status(200).json({
             message:"Password changed successfully"
         })
     } catch (error) {
