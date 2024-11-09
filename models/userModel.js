@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  userName: {
+  username: {
     type: String,
     required: true,
     unique: true,
@@ -14,12 +14,6 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-  },
-  phoneNumber: {
-    type: String,
-    match: [/^\d{10}$/, 'Please enter a valid 10-digit phone number'],
-    required:true
-   
   },
   otp:{
     type:String

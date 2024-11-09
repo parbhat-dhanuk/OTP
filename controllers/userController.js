@@ -6,10 +6,10 @@ import {sendEmail} from "../utils/email.js"
 
 export const register=async(req,res)=>{
     try {
-        const {email,userName,phoneNumber,password}=req.body
-        if(!email||!userName||!phoneNumber||!password){
+        const {email,username,password}=req.body
+        if(!email||!username||!password){
             return res.status(401).json({
-                message:"please provide email,userName,phoneNumber,password"
+                message:"please provide email,username,password"
             })
         }
         const user=await User.findOne({email})
@@ -21,9 +21,8 @@ export const register=async(req,res)=>{
         const hashPassword=await bcrypt.hash(password,10)
         await User.create({
             email,
-            userName,
-            password:hashPassword,
-            phoneNumber
+            username,
+            password:hashPassword
         })
         return res.status(201).json({
             message:"Account created successfully",
@@ -58,12 +57,8 @@ export const login=async (req,res)=>{
         })
     }
    
-    const token =await jwt.sign({userId:user._id},process.env.SECRET_KEY,{expiresIn:'1d'})
-     // const token = await jwt.sign({userId:user._id},process.env.SECRET_KEY,{expiredIn:"1d"})
-    // return res.cookie("token",token,{httpOnly:true,sameSite:"strict",maxAge:1*24*60*60*1000}).json({
-    //     message:`Welcome${user.userName}`,
-    //     data:user
-    // })
+    const token = jwt.sign({userId:user._id},process.env.SECRET_KEY,{expiresIn:'1d'})
+    
     return res.status(200).json({
         message:"logged in successfully",
         token:token
@@ -71,15 +66,6 @@ export const login=async (req,res)=>{
 }
 
 
-export const logout=async (_,res)=>{
-    try {
-        return res.cookie("token","",{maxAge:0}).json({
-            message:"logged out successfully",
-        })
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 
 //Forget password(OTP)
