@@ -11,7 +11,7 @@ app.use(express.json())
 // app.use(urlencoded({extended:true}))
 
 const corsOptions={
-    origin:"https://otp-frontend-tau.vercel.app/",
+    origin:"https://otp-frontend-tau.vercel.app",
     credentials:true
 }
 app.use(cors(corsOptions))
