@@ -10,6 +10,10 @@ const PORT=process.env.PORT||3000
 app.use(express.json())
 // app.use(urlencoded({extended:true}))
 
+app.use('/',(req,res)=>{
+res.send('I am live parbhat')
+})
+
 const corsOptions={
     origin:"https://otp-frontend-tau.vercel.app",
     credentials:true
